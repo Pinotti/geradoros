@@ -14,7 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/fabricantes', [FabricanteController::class, 'index'])->name('fabricantes.index');
+Route::prefix('fabricantes')->group(function () {
+    Route::get('', [FabricanteController::class, 'index'])->name('fabricantes.index');
+});
+
+Route::fallback(function () {
+    return 'Fallback';
+});
 
 Route::get('/', function () {
     return view('welcome');
