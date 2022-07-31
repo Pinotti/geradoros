@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('fabricantes')->group(function () {
     Route::get('', [FabricanteController::class, 'index'])->name('fabricantes.index');
+    Route::post('', [FabricanteController::class, 'store'])->name('fabicantes.store');
 });
 
 Route::fallback(function () {
