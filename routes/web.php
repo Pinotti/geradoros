@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('fabricantes')->group(function () {
-    Route::get('', [FabricanteController::class, 'index'])->name('fabricantes.index');
-    Route::post('', [FabricanteController::class, 'store'])->name('fabicantes.store');
+Route::prefix('fabricante')->group(function () {
+    Route::get('', [FabricanteController::class, 'index'])->name('fabricante.index');
+    Route::post('/store', [FabricanteController::class, 'store'])->name('fabicante.store');
+    Route::post('/{id}/update', [FabricanteController::class, 'update'])->name('fabricante.upate');
+    Route::delete('/{id}', [FabricanteController::class, 'destroy'])->name('fabricante.destroy');
 });
 
 Route::fallback(function () {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fabricante;
 use Illuminate\Http\Request;
 
 class FabricanteController extends Controller
@@ -11,19 +12,17 @@ class FabricanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        echo 'Teste';
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        if ($request->term != '') {
+            $fabricantes = Fabricante::where('nome', 'like', '%' . $request->term . '%')
+                ->orderBy('nome')
+                ->paginate(5);
+        } else {
+            $fabricantes = Fabricante::query()->orderBy('nome')->paginate(5);
+        }
+        
+        return view('fabricante.index', ['fabricantes' => $fabricantes]);
     }
 
     /**
@@ -34,29 +33,9 @@ class FabricanteController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        Fabricante::create(['nome' => $request->get('nome')]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return redirect()->route('fabricante.index');
     }
 
     /**
@@ -68,7 +47,10 @@ class FabricanteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $novoNome = $request->nome;
+        $fabricante = Fabricante::find($id);
+        $fabricante->nome = $novoNome;
+        $fabricante->save();
     }
 
     /**
@@ -79,6 +61,9 @@ class FabricanteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fabricante = Fabricante::find($id);
+        $fabricante->delete();
+
+        return redirect()->route('fabricante.index');
     }
 }
