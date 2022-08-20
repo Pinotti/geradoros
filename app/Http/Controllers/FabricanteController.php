@@ -17,9 +17,9 @@ class FabricanteController extends Controller
         if ($request->term != '') {
             $fabricantes = Fabricante::where('nome', 'like', '%' . $request->term . '%')
                 ->orderBy('nome')
-                ->paginate(5);
+                ->paginate(10);
         } else {
-            $fabricantes = Fabricante::query()->orderBy('nome')->paginate(5);
+            $fabricantes = Fabricante::query()->orderBy('nome')->paginate(10);
         }
         
         return view('fabricante.index', ['fabricantes' => $fabricantes]);

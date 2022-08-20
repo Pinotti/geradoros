@@ -70,7 +70,7 @@
                 </li>
             @endforeach
         </ul>
-        {{ $fabricantes->currentPage() }}
+        {{ $fabricantes->onEachSide(1)->links() }}
     </div>
 
     <script>
