@@ -1,0 +1,37 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	text-decoration: none;
+	font-size: 1em;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.header {
+    text-align: center;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 1300px;
+    padding-bottom: 10px;
+}
+
+.corpo {
+    width: 100%;
+}
+
+.list-group {
+    max-width: 1300px;
+    margin: 0 auto;
+	display: flex;
+}
+
+.paginate {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    padding-top: 10px;
+}

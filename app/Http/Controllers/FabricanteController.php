@@ -22,7 +22,7 @@ class FabricanteController extends Controller
             $fabricantes = Fabricante::query()->orderBy('nome')->paginate(10);
         }
         
-        return view('fabricante.index', ['fabricantes' => $fabricantes]);
+        return view('app.fabricante.index', ['fabricantes' => $fabricantes]);
     }
 
     /**
