@@ -1,11 +1,14 @@
 @extends('app.layouts.basico')
 
-@section('titulo', 'Fabricante')
+@section('titulo', 'Fabricantes')
 
 @section('conteudo')
 <div class="header">
     <h1>Fabricantes</h1>
 </div>
+
+<div id="nome-obrigatorio" class="alert alert-danger" hidden>Nome: Campo obrigatório</div>
+
 
 <div class="search">
     <div>
@@ -36,7 +39,7 @@
                 </div>
 
                 <div class="input-group w-50" hidden id="input-nome-fabricante-{{ $fabricante->id }}">
-                    <input type="text" class="form-control" value="{{ $fabricante->nome }}">
+                    <input type="text" id="nome" name="nome" class="form-control" value="{{ $fabricante->nome }}">
                     <div class="input-group-append">
                         <button class="btn btn-primary" onclick="editarFabricante({{ $fabricante->id }})">
                             <i class="fas fa-check"></i>
@@ -61,7 +64,14 @@
         @endforeach
     </ul>
     <div class="paginate">
-        {{ $fabricantes->onEachSide(1)->links() }}
+        <div class="pages">
+            {{ $fabricantes->appends([
+                'term' => request()->get('term', '')
+            ])->onEachSide(1)->links() }}
+        </div>
+        <div class="labels">
+            {{ $fabricantes->firstItem() }} a {{ $fabricantes->lastItem() }} de {{ $fabricantes->total() }}
+        </div>
     </div>
 </div>
 @endsection

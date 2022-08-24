@@ -33,9 +33,7 @@ class FabricanteController extends Controller
      */
     public function store(Request $request)
     {
-        Fabricante::create(['nome' => $request->get('nome')]);
-
-        return redirect()->route('fabricante.index');
+        Fabricante::create($request->all());
     }
 
     /**

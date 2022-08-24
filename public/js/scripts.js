@@ -16,18 +16,21 @@ function toggleInput(fabricanteId) {
 function editarFabricante(fabricanteId) {
     let formData = new FormData();
     const nome = document.querySelector(`#input-nome-fabricante-${fabricanteId} > input`).value;
-    const token = document.querySelector('input[name="_token"]').value;
-    formData.append('nome', nome);
-    formData.append('_token', token);
+    let validacao = validaNomeObrigatorio(nome);
+    if (validacao) {
+        const token = document.querySelector('input[name="_token"]').value;
+        formData.append('nome', nome);
+        formData.append('_token', token);
 
-    const url = `/fabricante/${fabricanteId}/update`;
-    fetch(url, {
-        body: formData,
-        method: 'POST'
-    }).then(() => {
-        toggleInput(fabricanteId);
-        document.getElementById(`nome-fabricante-${fabricanteId}`).textContent = nome;
-    });
+        const url = `/fabricante/${fabricanteId}/update`;
+        fetch(url, {
+            body: formData,
+            method: 'POST'
+        }).then(() => {
+            toggleInput(fabricanteId);
+            document.getElementById(`nome-fabricante-${fabricanteId}`).textContent = nome;
+        });
+    }
 }
 
 function novaLinha() {            
@@ -43,6 +46,7 @@ function novaLinha() {
 
         const input = document.createElement('input');
         input.setAttribute('type', 'text');
+        input.setAttribute('name', 'nome');
         input.setAttribute('class', 'form-control');
         input.setAttribute('id', 'idNovalinha');
 
@@ -68,7 +72,7 @@ function novaLinha() {
 function insereRegistro() {
     let nome = document.querySelector('#idNovalinha').value;
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    
+    validaNomeObrigatorio(nome);
     fetch('/fabricante/store', {
         headers: {
             "Content-Type": "application/json",
@@ -86,4 +90,16 @@ function insereRegistro() {
     }).catch(function(error) {
         console.log(error);
     });
+}
+
+function validaNomeObrigatorio(nome) {
+    let msgObrigatorio = document.getElementById('nome-obrigatorio');
+    if (!nome.trim()) {
+        msgObrigatorio.removeAttribute('hidden');
+        document.getElementById('nome').focus();
+        return false;
+    } else {
+        msgObrigatorio.hasAttribute('hidden');
+        return true;
+    }
 }

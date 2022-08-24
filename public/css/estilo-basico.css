@@ -34,4 +34,5 @@
     margin: 0 auto;
     display: flex;
     padding-top: 10px;
+    justify-content: space-between;
 }
