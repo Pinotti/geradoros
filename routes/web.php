@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FabricanteController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::prefix('user')->group(function () {
+    Route::get('', [UserController::class, 'index'])->name('user.index');
+    Route::post('/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    Route::delete('/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+});
 
 Route::prefix('fabricante')->group(function () {
     Route::get('', [FabricanteController::class, 'index'])->name('fabricante.index');

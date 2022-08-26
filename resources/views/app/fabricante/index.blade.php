@@ -10,7 +10,7 @@
 <div id="nome-obrigatorio" class="alert alert-danger" hidden>Nome: Campo obrigatório</div>
 
 
-<div class="search">
+<div class="content-header">
     <div>
         <button id="add_novo" class="btn btn-dark pull-left" onclick="novaLinha()">Novo</button>
     </div>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="corpo">
+<div class="content">
     <ul id="ul" class="list-group">
         @foreach ($fabricantes as $fabricante)
             <li class="list-group-item d-flex justify-content-between align-items-center">
