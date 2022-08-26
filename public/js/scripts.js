@@ -1,5 +1,5 @@
 function toggleInput(fabricanteId) {
-    const divNomeFabricante = document.querySelector('.nome-fabricante');
+    const divNomeFabricante = document.querySelector(`.nome-fabricante-${fabricanteId}`);
     const nomeFabricanteEl = document.getElementById(`nome-fabricante-${fabricanteId}`);
     const inputFabricanteEl = document.getElementById(`input-nome-fabricante-${fabricanteId}`);
     if (nomeFabricanteEl.hasAttribute('hidden')) {
@@ -9,7 +9,7 @@ function toggleInput(fabricanteId) {
     } else {
         inputFabricanteEl.removeAttribute('hidden');
         nomeFabricanteEl.hidden = true;
-        divNomeFabricante.setAttribute('style', 'display:none;');
+        divNomeFabricante.setAttribute('style', 'display:none');
     }
 }
 
@@ -72,24 +72,26 @@ function novaLinha() {
 function insereRegistro() {
     let nome = document.querySelector('#idNovalinha').value;
     let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    validaNomeObrigatorio(nome);
-    fetch('/fabricante/store', {
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json, text-plain, */*",
-            "X-Requested-With": "XMLHttpRequest",
-            "X-CSRF-TOKEN": token
-           },
-        method: 'post',
-        credentials: "same-origin",
-        body: JSON.stringify({
-            nome: nome
-        })
-    }).then((data) => {
-        window.location.href = '/fabricante';
-    }).catch(function(error) {
-        console.log(error);
-    });
+    let validacao = validaNomeObrigatorio(nome);
+    if (validacao) {
+        fetch('/fabricante/store', {
+            headers: {
+               "Content-Type": "application/json",
+              "Accept": "application/json, text-plain, */*",
+              "X-Requested-With": "XMLHttpRequest",
+              "X-CSRF-TOKEN": token
+             },
+            method: 'post',
+            credentials: "same-origin",
+            body: JSON.stringify({
+                nome: nome
+            })
+        }).then((data) => {
+            window.location.href = '/fabricante';
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
 }
 
 function validaNomeObrigatorio(nome) {

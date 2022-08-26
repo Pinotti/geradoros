@@ -34,7 +34,7 @@
     <ul id="ul" class="list-group">
         @foreach ($fabricantes as $fabricante)
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="nome-fabricante">
+                <div class="nome-fabricante-{{ $fabricante->id }}">
                     <span id="nome-fabricante-{{ $fabricante->id }}">{{ $fabricante->nome }}</span>
                 </div>
 
